@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:OctoberDemo.ViewModel"
+             mc:Ignorable = "d" NavigationPage.HasNavigationBar="false"
+             x:Class="OctoberDemo.Views.ListPage">
+
+    
+    <ContentPage.BindingContext>
+        <vm:ListPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid Padding="30" BackgroundColor="DarkSalmon" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Padding="0,10" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
+            <StackLayout Spacing="20" HorizontalOptions="Start" VerticalOptions="Center">
+            <!--   <Image Source="?search icon?" Aspect="AspectFill" WidthRequest="15" HeightRequest="15"/> -->
+            </StackLayout>
+            <StackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="ELEGANT" TextColor="White" FontFamily="ThemeFont" FontSize="50" HorizontalOptions="Center"/>
+                <Label Text="JEWELRY" Margin="0,-5,0,0" TextColor="White" Opacity="0.5" FontFamily="LightFont" FontSize="25"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+        <CollectionView x:Name="jewelryList" Margin="0,40,0,0" Grid.Row="1" ItemsSource ="{Binding Jewelries}" SelectionMode="Single"
+                        SelectedItem="{Binding SelectedJewelry}" VerticalScrollBarVisibility="Never" 
+                        SelectionChangedCommand="{Binding SelectionCommand}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" BackgroundColor="White" WidthRequest="145" HeightRequest="160">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Aspect="AspectFill" Source="{Binding Image}" Margin="10" WidthRequest="125" HeightRequest="110" 
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Text="{Binding Name}" TextColor="LightGray" FontFamily="ThemeFont"
+                               VerticalOptions="End" HorizontalOptions="Start"/>
+                        <Label Grid.Row="1" Text="{Binding Price , StringFormat='${0}'}" TextColor="LightGray" FontFamily="ThemeFont"
+                               VerticalOptions="End" HorizontalOptions="End"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <Grid HeightRequest="0"/>
+            </CollectionView.Footer>
+        </CollectionView>
+    </Grid>
+</ContentPage>
